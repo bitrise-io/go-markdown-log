@@ -10,20 +10,8 @@ import (
 func ClearLogFile() error {
 	pth := os.Getenv("BITRISE_STEP_FORMATTED_OUTPUT_FILE_PATH")
 	if pth != "" {
-		f, err := os.OpenFile(pth, os.O_RDWR|os.O_CREATE, 0664)
-		if err != nil {
-			return err
-		}
-		defer func() error {
-			err := f.Close()
-			if err != nil {
-				return err
-			}
+		err := os.Remove(pth)
 
-			return nil
-		}()
-
-		_, err := w.Write([]byte(""))
 		if err != nil {
 			return err
 		}
