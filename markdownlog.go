@@ -21,6 +21,8 @@ func ClearLogFile() error {
 			if err != nil {
 				return err
 			}
+
+			return nil
 		}()
 
 		w = io.MultiWriter(f, os.Stdout)
@@ -52,6 +54,8 @@ func ErrorMessageToOutput(msg string) error {
 			if err != nil {
 				return err
 			}
+
+			return nil
 		}()
 
 		w = io.MultiWriter(f, os.Stderr)
@@ -96,6 +100,8 @@ func MessageToOutput(msg string) error {
 			if err != nil {
 				return err
 			}
+
+			return nil
 		}()
 
 		w = io.MultiWriter(f, os.Stdout)
