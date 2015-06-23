@@ -4,7 +4,7 @@ import (
 	"os"
 	"strings"
 
-	log "github.com/Sirupsen/logrus"
+	log "./logrus"
 )
 
 func ClearLogFile() error {
