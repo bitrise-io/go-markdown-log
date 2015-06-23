@@ -14,12 +14,12 @@ func ClearLogFile() error {
 	if pth != "" {
 		f, err := os.OpenFile(pth, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 		if err != nil {
-			log.Fatalf("Failed to open file: %v", err)
+			return err
 		}
 		defer func() {
 			err := f.Close()
 			if err != nil {
-				log.Fatalln("Failed to close file:", err)
+				return err
 			}
 		}()
 
@@ -30,12 +30,56 @@ func ClearLogFile() error {
 
 	_, err := w.Write([]byte(""))
 	if err != nil {
-		log.Fatalln("Failed to clear log file:", err)
+		return err
 	}
 
 	log.Info("Log file cleared")
 
 	return nil
+}
+
+func ErrorMessageToOutput(msg string) error {
+	var w io.Writer
+
+	pth := os.Getenv("BITRISE_STEP_FORMATTED_OUTPUT_FILE_PATH")
+	if pth != "" {
+		f, err := os.OpenFile(pth, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+		if err != nil {
+			return err
+		}
+		defer func() {
+			err := f.Close()
+			if err != nil {
+				return err
+			}
+		}()
+
+		w = io.MultiWriter(f, os.Stderr)
+	} else {
+		w = io.MultiWriter(os.Stderr)
+		log.Errorln("No BITRISE_STEP_FORMATTED_OUTPUT_FILE_PATH defined")
+	}
+
+	_, err := w.Write([]byte(msg))
+	if err != nil {
+		return err
+	}
+
+	log.Errorln(msg)
+
+	return nil
+}
+
+func ErrorSectionToOutput(section string) error {
+	msg := "\n" + section + "\n"
+
+	return ErrorMessageToOutput(msg)
+}
+
+func ErrorSectionStartToOutput(section string) error {
+	msg := section + "\n"
+
+	return ErrorMessageToOutput(msg)
 }
 
 func MessageToOutput(msg string) error {
@@ -45,12 +89,12 @@ func MessageToOutput(msg string) error {
 	if pth != "" {
 		f, err := os.OpenFile(pth, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 		if err != nil {
-			log.Fatalf("Failed to open file: %v", err)
+			return err
 		}
 		defer func() {
 			err := f.Close()
 			if err != nil {
-				log.Fatalln("Failed to close file:", err)
+				return err
 			}
 		}()
 
@@ -62,7 +106,7 @@ func MessageToOutput(msg string) error {
 
 	_, err := w.Write([]byte(msg))
 	if err != nil {
-		log.Fatalln("Failed to write message:", err)
+		return err
 	}
 
 	log.Infoln(msg)
