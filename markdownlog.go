@@ -8,11 +8,9 @@ import (
 )
 
 func ClearLogFile() error {
-	var w io.Writer
-
 	pth := os.Getenv("BITRISE_STEP_FORMATTED_OUTPUT_FILE_PATH")
 	if pth != "" {
-		f, err := os.OpenFile(pth, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+		f, err := os.OpenFile(pth, os.O_RDWR|os.O_CREATE, 0664)
 		if err != nil {
 			return err
 		}
@@ -25,17 +23,15 @@ func ClearLogFile() error {
 			return nil
 		}()
 
-		w = io.MultiWriter(f, os.Stdout)
+		_, err := w.Write([]byte(""))
+		if err != nil {
+			return err
+		}
+
+		log.Info("Log file cleared")
 	} else {
 		log.Error("No BITRISE_STEP_FORMATTED_OUTPUT_FILE_PATH defined")
 	}
-
-	_, err := w.Write([]byte(""))
-	if err != nil {
-		return err
-	}
-
-	log.Info("Log file cleared")
 
 	return nil
 }
