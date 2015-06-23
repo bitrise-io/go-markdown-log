@@ -1,8 +1,0 @@
-{
-	"dep_locks": [
-		{
-			"url": "https://github.com/Sirupsen/logrus.git",
-			"revision": "2a0a9a12ae2892ccfa9ab59c1222e9dcd29f9367"
-		}
-	]
-}
