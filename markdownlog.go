@@ -16,7 +16,7 @@ func ClearLogFile() error {
 		if err != nil {
 			return err
 		}
-		defer func() {
+		defer func() error {
 			err := f.Close()
 			if err != nil {
 				return err
@@ -47,7 +47,7 @@ func ErrorMessageToOutput(msg string) error {
 		if err != nil {
 			return err
 		}
-		defer func() {
+		defer func() error {
 			err := f.Close()
 			if err != nil {
 				return err
@@ -91,7 +91,7 @@ func MessageToOutput(msg string) error {
 		if err != nil {
 			return err
 		}
-		defer func() {
+		defer func() error {
 			err := f.Close()
 			if err != nil {
 				return err
