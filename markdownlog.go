@@ -1,7 +1,6 @@
 package markdownlog
 
 import (
-	"io"
 	"os"
 	"strings"
 
