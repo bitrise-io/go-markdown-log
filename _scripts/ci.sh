@@ -12,7 +12,7 @@ cd "${THIS_SCRIPT_DIR}/.."
 set -v
 
 go build
-go test markdownlog_test.go markdownlog.go
+go test -v ./...
 #
 # ==> DONE - OK
 #
