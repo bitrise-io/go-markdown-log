@@ -41,10 +41,15 @@ func TestClearLogFile(t *testing.T) {
 		t.Error("Log path setup failed")
 	}
 
-	ClearLogFile()
-
-	if exist, _ := IsPathExists(pth); exist {
-		t.Error("Failed to clear LogFileTest.md")
+	exist, err := IsPathExists(pth)
+	if err != nil {
+		t.Error("Failed to check path:", err)
+	}
+	if exist {
+		e := ClearLogFile()
+		if e != nil {
+			t.Error("Failed to clear LogFileTest.md:", e)
+		}
 	}
 }
 
@@ -56,9 +61,15 @@ func TestMessageToOutput(t *testing.T) {
 		t.Error("Log path setup failed")
 	}
 
-	ClearLogFile()
-	if exist, _ := IsPathExists(pth); exist {
-		t.Error("Failed to clear LogFileTest.md")
+	exist, err := IsPathExists(pth)
+	if err != nil {
+		t.Error("Failed to check path:", err)
+	}
+	if exist {
+		e := ClearLogFile()
+		if e != nil {
+			t.Error("Failed to clear LogFileTest.md:", e)
+		}
 	}
 
 	// Read reference log file
@@ -90,9 +101,15 @@ func TestSectionToOutput(t *testing.T) {
 		t.Error("Log path setup failed")
 	}
 
-	ClearLogFile()
-	if exist, _ := IsPathExists(pth); exist {
-		t.Error("Failed to clear LogFileTest.md")
+	exist, err := IsPathExists(pth)
+	if err != nil {
+		t.Error("Failed to check path:", err)
+	}
+	if exist {
+		e := ClearLogFile()
+		if e != nil {
+			t.Error("Failed to clear LogFileTest.md:", e)
+		}
 	}
 
 	// Read reference log file
@@ -129,9 +146,15 @@ func TestSectionStartToOutput(t *testing.T) {
 		t.Error("Log path setup failed")
 	}
 
-	ClearLogFile()
-	if exist, _ := IsPathExists(pth); exist {
-		t.Error("Failed to clear LogFileTest.md")
+	exist, err := IsPathExists(pth)
+	if err != nil {
+		t.Error("Failed to check path:", err)
+	}
+	if exist {
+		e := ClearLogFile()
+		if e != nil {
+			t.Error("Failed to clear LogFileTest.md:", e)
+		}
 	}
 
 	// Read reference log file

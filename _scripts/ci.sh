@@ -11,6 +11,11 @@ cd "${THIS_SCRIPT_DIR}/.."
 
 set -v
 
+go get github.com/kisielk/errcheck
+go install github.com/kisielk/errcheck
+
+errcheck -asserts=true -blank=true ./...
+
 go build
 go test -v ./...
 #
